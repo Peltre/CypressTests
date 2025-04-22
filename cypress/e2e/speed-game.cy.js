@@ -8,8 +8,8 @@ describe("Speed Game", () => {
     // Esperar para que el boton de end game aparezca
     cy.wait(500);
 
-    // hacer click en el boton de end game con timeout para esperar los 5 segundos a que aparezca
-    cy.contains("button", /End Game/i, { timeout: 5000 })
+    // hacer click en el boton de end game con timeout para esperar los 10 segundos a que aparezca
+    cy.contains("button", /End Game/i, { timeout: 10500 })
       .should('be.visible')
       .click();
 
