@@ -1,11 +1,10 @@
 describe('Sorted List - Agregar 2 objetos nuevos', () => {
     it('debe agregar 2 items y verificar que aparezcan en la lista', () => {
-      cy.visit('/sortedList'); // Ajusta la URL según tu app
+      cy.visit('/sortedList');
   
-      // 1. Selectores precisos (basados en el HTML proporcionado)
-      const inputSelector = 'input[type="text"][required]'; // Input field
-      const addButtonSelector = 'button.form_btn.add'; // Botón exacto (clases CSS)
-      const listItemsSelector = '.todo-list li'; // Items de la lista (ajusta si es necesario)
+      // 1. Selectores precisos
+      const inputSelector = 'input[type="text"][required]'; // Input
+      const addButtonSelector = 'button.form_btn.add'; // Botón
   
       // 2. Datos de prueba
       const itemsToAdd = ['Tarea A', 'Tarea B'];
