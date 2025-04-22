@@ -1,6 +1,14 @@
-{
-    "firstname": "Juan",
-    "lastname": "Perez",
-    "email": "juan@test.com",
-    "password": "1234"
-  }
+[
+    {
+      "firstname": "Joel",
+      "lastname": "Aragon",
+      "email": "joel134@example.com",
+      "password": "Password123!"
+    },
+    {
+      "firstname": "Andre",
+      "lastname": "Alfajor",
+      "email": "andrealfajor@example.com",
+      "password": "SecurePass456!"
+    }
+  ]
