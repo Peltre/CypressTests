@@ -1,1 +1,12 @@
-["Michi", "Garfield"]
+[
+    {
+      "name": "Joelin",
+      "description": "Fluffy white cat",
+      "preference": "outside"
+    },
+    {
+      "name": "Garrafon",
+      "description": "Playful black cat",
+      "preference": "inside"
+    }
+  ]
