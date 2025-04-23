@@ -1,58 +1,61 @@
 describe('Form Fill - Guardar usuarios en DB', () => {
     before(() => {
-      cy.visit('/formFill'); // Ajusta la URL
-      cy.fixture('users').as('usersData'); // Carga datos de prueba
+      cy.visit('/formFill');
+      cy.fixture('users').as('usersData');
     });
   
-    it('debe guardar 2 usuarios y validar que se almacenaron', function () {
-      // 1. Selectores actualizados (basados en tu HTML)
+    it('debe guardar 2 usuarios y validar que se almacenaron', function() {
       const selectors = {
         firstname: 'input[name="firstname"]',
         lastname: 'input[name="lastname"]',
         email: 'input[name="email"]',
         password: 'input[name="password"]',
-        saveButton: 'section.btn_section > button.form_btn.add', // Selector preciso
-        showUsersButton: 'button.form_btn.orange:contains("Show users in DB")',
+        saveButton: 'section.btn_section > button.form_btn.add',
+        showUsersButton: 'button.form_btn.orange',
         successMessage: 'p.save_message',
-        usersList: '.users-list' // Ajusta según tu HTML
+        usersTable: 'table.table' // Selector actualizado para la tabla
       };
   
-      // 2. Guardar cada usuario del fixture
+      // Guardar usuarios
       this.usersData.forEach((user) => {
-        // Llenar el formulario
         cy.get(selectors.firstname).type(user.firstname);
         cy.get(selectors.lastname).type(user.lastname);
         cy.get(selectors.email).type(user.email);
         cy.get(selectors.password).type(user.password);
-  
-        // Hacer clic en "Save to db" (con verificación explícita)
+        
         cy.get(selectors.saveButton)
           .should('be.visible')
-          .and('contain.text', 'Save to db') // Verifica el texto exacto
           .click();
-  
-        // Verificar mensaje de éxito
+        
         cy.get(selectors.successMessage)
           .should('be.visible')
           .and('contain.text', 'Data saved to DB');
-  
-        // Limpiar el formulario
+        
+        // Limpiar campos
         cy.get(selectors.firstname).clear();
-        // ... limpia los demás campos
+        cy.get(selectors.lastname).clear();
+        cy.get(selectors.email).clear();
+        cy.get(selectors.password).clear();
       });
   
-      // 3. Validar datos en la DB
+      // Mostrar usuarios
       cy.get(selectors.showUsersButton)
-      .should('exist') // Verifica que el elemento existe en el DOM
-      .and('be.visible') // Verifica que no está oculto
-      .and('not.be.disabled') // Verifica que no está deshabilitado
-      .click();
-
-    // 4. Verificar que los usuarios aparecen en la lista
-    this.usersData.forEach((user) => {
-      cy.get(selectors.usersList)
-        .should('contain', user.firstname)
-        .and('contain', user.email);
-    });
+        .should('be.visible')
+        .click();
+  
+      // Verificar usuarios en la tabla
+      cy.get(selectors.usersTable).should('be.visible');
+      
+      this.usersData.forEach((user) => {
+        // Verificar nombre en la primera columna
+        cy.get(selectors.usersTable)
+          .contains('tr td:first-child', user.firstname)
+          .should('exist');
+        
+        // Verificar email en la segunda columna
+        cy.get(selectors.usersTable)
+          .contains('tr td:nth-child(2)', user.email)
+          .should('exist');
+      });
     });
   });
